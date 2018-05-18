@@ -8,9 +8,13 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class anagrams {
-	ArrayList <String> check = new ArrayList <String>();
+	ArrayList<String> splits = new ArrayList<String>();
+	String word;
+	String wordPick;
+	Boolean yes = true;
 	public static void main(String[] args) {
 		anagrams a = new anagrams();
+
 		try {
 			a.anagramSearch();
 		} catch (FileNotFoundException e) {
@@ -21,28 +25,35 @@ public class anagrams {
 	}
 
 	void anagramSearch() throws FileNotFoundException {
-		String word = JOptionPane.showInputDialog("Type a word");
+		word = JOptionPane.showInputDialog("Type a word");
+		wordPick = word;
 		// System.out.println(word);
+		for (int i = 0; i < word.length(); i++) {
+			splits.add(word.substring(i, i + 1));
 
+		}
+
+		System.out.println(splits);
 		Scanner scan = new Scanner(new File("src/eshaank_Level4/dictionary.txt"));
 		while (scan.hasNextLine()) {
 			String str = scan.nextLine();
 			if (str.length() == word.length()) {
-			//	System.out.println(word.length());
-			//	System.out.println(str);
-				for (int i = 0; i < word.length(); i++) {
-					if (str.substring(i, word.length()-1) == word.substring(i)) {
-						check.add(str);
-						System.out.println(check);
-						//System.out.println(str);
-					
-				}
-				}
+				{
+					for (int i = 0; i < wordPick.length(); i++) {
+						if (str.contains(wordPick.substring((i)))) {
+							yes = true;
+							if (yes == true) {
+								System.out.println(str);
+							}
+
+						}
+					}
 					
 
+				}
 			}
-
 		}
 
 	}
+
 }
