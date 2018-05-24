@@ -8,7 +8,7 @@ Checkword();
 }
 public static boolean Checkword() {
 	String randomString = "iceman";
-	String word = "dog";
+	String word = "ice";
 	{
 		for (int i = 0; i < word.length(); i++) {
 			if (randomString.contains(word.substring((i)))) {
