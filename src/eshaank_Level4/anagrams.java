@@ -9,15 +9,17 @@ import javax.swing.JOptionPane;
 
 public class anagrams {
 	ArrayList<String> splits = new ArrayList<String>();
-	
+
 	String word;
-	
 
 	public static void main(String[] args) {
 		anagrams a = new anagrams();
 
 		try {
-			a.anagramSearch();
+			for (int i = 0; i < 10; i++) {
+				a.anagramSearch();
+			}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,7 +35,7 @@ public class anagrams {
 			String str = scan.nextLine();
 
 			if (containsChar(word, str) && str.length() == word.length()) {
-				System.out.println(str);
+				System.out.println("Anagram " + str);
 			}
 
 		}
@@ -47,11 +49,11 @@ public class anagrams {
 			if (!str.contains(letters)) {
 				return false;
 			}
-			  if (str.contains(letters)) {
+			if (str.contains(letters)) {
 				str = str.replaceFirst(letters, "");
-				
-				 //System.out.println(str);
-				 if (str.isEmpty() ) {
+
+				// System.out.println(str);
+				if (str.isEmpty()) {
 					return true;
 				}
 			}
