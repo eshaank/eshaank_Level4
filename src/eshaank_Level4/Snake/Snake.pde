@@ -29,10 +29,11 @@ Segment head;
 
 
 // 6. Create and initialize String to hold the direction of your snake e.g. "up"
-String up = "up";
-String down = "down";
-String left = "left";
-String right = "right";
+final String up = "up";
+final String down = "down";
+final String left = "left";
+final String right = "right";
+String direction = up;
 
 // 7. Create and initialize a variable to hold how many pieces of food the snake has eaten.
 int foodEaten = 0;
@@ -49,7 +50,8 @@ void setup() {
   // 10. initialize your head to a new segment.
   head = new Segment(250, 250);
   // 11. Use the frameRate(int rate) method to set the rate to 20.
-  frameRate(20);
+  frameRate(25);
+ 
 }
 
 void draw() {
@@ -73,7 +75,7 @@ void drawFood() {
 //14. Draw the snake head
 void drawSnake() {
   fill(0, 255, 0);
-  rect(head.x, head.y , 10, 10);
+  rect(head.x, head.y, 10, 10);
   //test your code
 }
 
@@ -81,26 +83,21 @@ void drawSnake() {
 void move() {
   // 16. Create a switch statement using your direction variable. Depending on the direction, add a new segment to your snake.
   // The first case will look like this
-  switch(up) {
-  case "up":
+  switch(direction) {
+  case up:
     head = new Segment(head.getX(), head.getY() - 10);
     break;
-  }
-  //switch(down) {
-  //case "down":
-  //  head = new Segment(head.getX(), head.getY() + 10);
-  //  break;
-  //}
-  //switch(left) {
-  //case "left":
-  //  head = new Segment(head.getX() - 10, head.getY());
-  //  break;
-  //}
-  //switch(right) {
-  //case "right":
-  //  head = new Segment(head.getX() + 10, head.getY() );
-  //  break;
-  //}
+  case down:
+    head = new Segment(head.getX(), head.getY() + 10);
+    break;
+  case left:
+    head = new Segment(head.getX() - 10, head.getY());
+    break;
+  case right:
+    head = new Segment(head.getX() + 10, head.getY() );
+    break;
+  
+     }
   checkBoundaries();
 
   // 17. Call the checkBoundaries method to make sure the snake doesn't go off the screen.
@@ -108,23 +105,36 @@ void move() {
 
 // 18. check if your head is out of bounds (teleport you snake to the other side).
 void checkBoundaries() {
-  if(head.x <= 0){
-   head.setX(width);
-    
+  if (head.x < 0) {
+    head.setX(width);
+  } else if (head.x > width) {
+    head.setX(0);
+  } else if (head.y < 0) {
+    head.setY(width);
+  } else if (head.y > width ) {
+    head.setY(0) ;
   }
-
-  if(head.getY() <= 0){
-   head.setY(width); 
-    
-  }
-  
-  
-  
 }
 
 
 // 19. Complete the keyPressed method below. Use if statements to set your direction variable depending on what key is pressed. 
 void keyPressed() {
+  if (keyCode == UP) {
+    direction = up;
+    
+  } 
+  else if (keyCode == DOWN) {
+    direction = down;
+   
+  } 
+  else if (keyCode == RIGHT) {
+    direction = right;
+    
+  } 
+  else if (keyCode == LEFT) {
+    direction = left;
+    
+  }
 }
 //20. Make sure that the key for your current direction’s opposite doesn’t work(i.e. If you’re going up, down key shouldn’t work)
 
@@ -132,7 +142,12 @@ void keyPressed() {
 // 21. Complete the missing parts of the collision method below.
 void collision() {
   // If the segment is colliding with a piece of food...
-
+if(head.getX() == foodX && head.getY() == foodY){
+  foodEaten +=1;
+  foodX = ((int)random(50)*10);
+  foodY = ((int)random(50)*10);
+  
+}
   // Increase the amount of food eaten and set foodX and foodY to new random locations.
 }
 
@@ -141,15 +156,19 @@ void collision() {
  ** Part 2: making the tail 
  **/
 //  1. Create and initialize an ArrayList of Segments. (This will be your snake!)
-
+ArrayList snake = new ArrayList();
 // 2. Complete the missing parts of the drawTail method below.
 void drawTail() {
   // Add your head to your ArrayList
-
+snake.add(head);
   // Draw a 10 by 10 rectangle for each Segment in your snake ArrayList.
-
-
+for(int i = 0; i < snake.size(); i++){
+ rect(head.x, head.y, 10, 10); 
+}
   // While the snake size is greater than your food, remove the first Segment in your snake.
+  if( snake.size() > foodEaten){
+      snake.remove(head);
+  }
 }
 
 // 3. Complete the missing parts of the bodyCollision method below.
