@@ -50,7 +50,7 @@ void setup() {
   // 10. initialize your head to a new segment.
   head = new Segment(250, 250);
   // 11. Use the frameRate(int rate) method to set the rate to 20.
-  frameRate(25);
+  frameRate(15);
  
 }
 
@@ -156,23 +156,28 @@ if(head.getX() == foodX && head.getY() == foodY){
  ** Part 2: making the tail 
  **/
 //  1. Create and initialize an ArrayList of Segments. (This will be your snake!)
-ArrayList snake = new ArrayList();
+ArrayList<Segment>snake = new ArrayList<Segment>();
+
 // 2. Complete the missing parts of the drawTail method below.
 void drawTail() {
   // Add your head to your ArrayList
 snake.add(head);
   // Draw a 10 by 10 rectangle for each Segment in your snake ArrayList.
-for(int i = 0; i < snake.size(); i++){
- rect(head.x, head.y, 10, 10); 
-}
-  // While the snake size is greater than your food, remove the first Segment in your snake.
-  if( snake.size() > foodEaten){
-      snake.remove(head);
+ for (Segment s : snake) {
+    rect(s.x, s.y, 10, 10);
   }
+
+  // While the snake size is greater than your food, remove the first Segment in your snake.
+    while (snake.size()>foodEaten) {
+    snake.remove(0);
+  }
+
 }
 
 // 3. Complete the missing parts of the bodyCollision method below.
 void bodyCollision() {
   // If different segments have the same location...
   // Set food back to 3.
+ 
+ 
 }
